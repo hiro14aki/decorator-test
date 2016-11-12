@@ -5,12 +5,17 @@ const gulp  = require('gulp'),
       browserify = require("browserify"),
       babelify = require("babelify"),
       watchify = require("watchify"),
+      assign = require("lodash.assign"),
       source = require("vinyl-source-stream");
 
 let javascriptBuild = (entry) => {
   let customOpts = {
     entries: [entry],
-    transform: [babelify.configure({presets: ["es2015"]})],
+    transform: [babelify.configure({
+      presets: ["es2015"],
+      plugins: ["transform-decorators-legacy"]
+    }
+    )],
     debug: true
   };
 

@@ -1,15 +1,42 @@
-class Fizz {
-  buzz() {
-    return "FizzBuzz";
+
+// @annotation
+class Person {
+  constructor() {
+    this.firstname = "Alice";
+    this.lastname = "Liddell";
+  }
+
+  @readonly(true)
+  fullName() {
+    return this.firstname + " " + this.lastname;
+  }
+
+}
+
+function readonly(value) {
+  return function (target, key, descriptor) {
+    descriptor.writable = !value;
+    return descriptor;
   }
 }
-let fizz = new Fizz();
-let res = fizz.buzz();
-console.log(res);
 
-var sampleFunction = () => {
-  var hoge = 'hoge';
-  console.log(hoge);
-};
+let person = new Person();
+console.log(person.fullName());
 
-sampleFunction();
+person.fullName = function () {return this.firstname};
+console.log(person.fullName());
+
+
+
+
+@isTestable(true)
+class MyClass { }
+
+function isTestable(value) {
+   return function (target) {
+      target.isTestable = value;
+   }
+}
+
+let myclass = new MyClass();
+console.log(myclass);
