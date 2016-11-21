@@ -6,18 +6,15 @@ class Person {
     this.lastname = "Liddell"
   }
 
-  @readonly()
+  @readonly
   fullName() {
     return this.firstname + " " + this.lastname
   }
-
 }
 
-function readonly() {
-  return function (target, key, descriptor) {
-    descriptor.writable = false
-    return descriptor
-  }
+function readonly(target, key, descriptor) {
+  descriptor.writable = false
+  return descriptor
 }
 
 let person = new Person()
